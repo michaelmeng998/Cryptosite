@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+<link
+  rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<!-- start block -->
+{% block content %}
+
+<!-- control logic -->
+{% if notfound %}
+<div class="d-flex justify-content-center">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <span>...</span>
+  {{ notfound }}
+</div>
+{% else %}
+<!--  -->
+{% if crypto.Response %} 
+  <div class="alert alert-danger alert-dismissible fade show">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <h4 class="alert-heading">Error!</h4>
+    Sorry {{ quote }} does not exist. Please try again...  </div>
+</div>
+{% endif %}
+<!-- pull data -->
+{% for key,value in crypto.DISPLAY.items %}
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">{{ key }}</h1>
+    <strong>Price</strong>:{{ value.USD.PRICE }} <br />
+    <strong>Day High</strong>:{{ value.USD.HIGHDAY }} <br />
+    <strong>Day Low</strong>:{{ value.USD.LOWDAY }} <br />
+    <strong>Market Cap</strong>:{{ value.USD.MKTCAP }} <br />
+  </div>
+</div>
+{% endfor %} {% endif %}
+<br /><br />
+
+{% endblock %}

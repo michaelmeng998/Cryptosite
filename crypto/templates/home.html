@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+<!-- home content below -->
+
+{% block content %}
+
+<div class="jumbotron">
+  <h1 class="display-4">
+    Welcome to CryptoSite!
+  </h1>
+  <p class="lead">
+    The one stop shop for up to date crypto currency and news!
+  </p>
+  <hr class="my-4" />
+
+  <a
+    class="btn btn-primary"
+    href="https://www.binance.com/en?ref=10199570"
+    role="button"
+    >For More cryptocurrency Info...</a
+  >
+</div>
+<script>
+  var ctx = document.getElementById("myChart").getContext("2d");
+  var myChart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+      datasets: [
+        {
+          label: "# of Votes",
+          data: [12, 19, 3, 5, 2, 3],
+          backgroundColor: [
+            "rgba(255, 99, 132, 0.2)",
+            "rgba(54, 162, 235, 0.2)",
+            "rgba(255, 206, 86, 0.2)",
+            "rgba(75, 192, 192, 0.2)",
+            "rgba(153, 102, 255, 0.2)",
+            "rgba(255, 159, 64, 0.2)"
+          ],
+          borderColor: [
+            "rgba(255, 99, 132, 1)",
+            "rgba(54, 162, 235, 1)",
+            "rgba(255, 206, 86, 1)",
+            "rgba(75, 192, 192, 1)",
+            "rgba(153, 102, 255, 1)",
+            "rgba(255, 159, 64, 1)"
+          ],
+          borderWidth: 1
+        }
+      ]
+    },
+    options: {
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true
+            }
+          }
+        ]
+      }
+    }
+  });
+</script>
+
+<table class="table table-dark table-bordered table-hover table-sm">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">24h High</th>
+      <th scope="col">24h Low</th>
+      <th scope="col">Market Cap</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for key,value in price_api.DISPLAY.items %}
+
+    <tr>
+      <td>{{ key }}</td>
+      <td>{{ value.USD.PRICE }}</td>
+      <td>{{ value.USD.HIGHDAY }}</td>
+      <td>{{ value.USD.LOWDAY }}</td>
+      <td>{{ value.USD.MKTCAP }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="container">
+  <div class="row">
+    {% for var in api.Data %}
+    <div class="col-sm">
+      <div class="card" style="width: 18rem;">
+        <img src="{{var.imageurl}}" class="card-img-top" alt="{{var.source}}" />
+        <div class="card-body">
+          <h5 class="card-title">{{var.title}}</h5>
+          <p class="card-text">
+            {{var.body}}
+          </p>
+          <a href="{{var.url}}" class="btn btn-primary">For more info...</a>
+        </div>
+      </div>
+      <br />
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
